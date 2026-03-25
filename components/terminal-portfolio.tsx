@@ -176,32 +176,36 @@ export function TerminalPortfolio() {
               className="group/project block"
             >
               <div className="[perspective:1600px]">
-                <div className="relative h-[560px] w-full rounded-2xl [transform-style:preserve-3d] transition-transform duration-[1600ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] [will-change:transform] group-hover/project:[transform:rotateY(180deg)]">
+                <div className="relative h-[360px] w-full rounded-2xl [transform-style:preserve-3d] transition-transform duration-[1600ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] [will-change:transform] sm:h-[520px] md:h-[560px] sm:group-hover/project:[transform:rotateY(180deg)]">
                   <div className="absolute inset-0 overflow-hidden rounded-2xl border border-[#1f1f1f] bg-[#000000] shadow-[0_24px_38px_-26px_rgba(255,255,255,0.08)] [backface-visibility:hidden]">
-                    <div className="flex items-center justify-between border-b border-[#1f1f1f] bg-[#050505] px-4 py-2">
-                      <p className="text-[11px] uppercase tracking-[0.16em] text-[#a8afab]">
-                        {project.title}
-                      </p>
-                      <p className="text-[10px] text-[#8a908d]">live render</p>
+                    <div className="flex h-full flex-col">
+                      <div className="flex items-center justify-between border-b border-[#1f1f1f] bg-[#050505] px-4 py-2">
+                        <p className="text-[11px] uppercase tracking-[0.16em] text-[#a8afab]">
+                          {project.title}
+                        </p>
+                        <p className="text-[10px] text-[#8a908d]">
+                          live render
+                        </p>
+                      </div>
+                      {iframeBlockedByHeaders.has(project.slug) ? (
+                        <div
+                          className="w-full flex-1 bg-cover bg-center"
+                          style={{
+                            backgroundImage: `url(${staticProjectImages[project.slug] || getScreenshotPreview(project.previewUrl ?? project.liveUrl)})`,
+                          }}
+                        />
+                      ) : (
+                        <iframe
+                          src={project.previewUrl ?? project.liveUrl}
+                          title={`${project.title} live preview`}
+                          loading="lazy"
+                          className="w-full flex-1 border-0 pointer-events-none"
+                        />
+                      )}
                     </div>
-                    {iframeBlockedByHeaders.has(project.slug) ? (
-                      <div
-                        className="h-[516px] w-full bg-cover bg-center"
-                        style={{
-                          backgroundImage: `url(${staticProjectImages[project.slug] || getScreenshotPreview(project.previewUrl ?? project.liveUrl)})`,
-                        }}
-                      />
-                    ) : (
-                      <iframe
-                        src={project.previewUrl ?? project.liveUrl}
-                        title={`${project.title} live preview`}
-                        loading="lazy"
-                        className="h-[516px] w-full border-0 pointer-events-none"
-                      />
-                    )}
                   </div>
 
-                  <div className="absolute inset-0 rounded-2xl border border-[#2b2b2b] bg-[#050505] p-6 text-[#f5f7f6] shadow-[0_24px_38px_-26px_rgba(255,255,255,0.08)] [transform:rotateY(180deg)] [backface-visibility:hidden]">
+                  <div className="absolute inset-0 hidden rounded-2xl border border-[#2b2b2b] bg-[#050505] p-6 text-[#f5f7f6] shadow-[0_24px_38px_-26px_rgba(255,255,255,0.08)] [transform:rotateY(180deg)] [backface-visibility:hidden] sm:block">
                     <p className="text-[11px] uppercase tracking-[0.16em] text-[#a8afab]">
                       {project.title}
                     </p>
@@ -264,8 +268,10 @@ export function TerminalPortfolio() {
         <div className="rounded-2xl border border-[#1f1f1f] bg-[#050505] p-4 text-sm text-[#8a908d] sm:text-base">
           <p>contact --email {contactLinks.email}</p>
           <p>contact --location {contactLinks.location}</p>
-          <p className="mt-1">links --linkedin {contactLinks.linkedin}</p>
-          <p>links --leetcode {contactLinks.leetcode}</p>
+          <p className="mt-1 break-all">
+            links --linkedin {contactLinks.linkedin}
+          </p>
+          <p className="break-all">links --leetcode {contactLinks.leetcode}</p>
         </div>
       </section>
     </main>
