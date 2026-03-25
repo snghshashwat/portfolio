@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode, useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   contactLinks,
   education,
@@ -30,25 +30,16 @@ function AnimatedTerminalCard({
   children: ReactNode;
   className?: string;
 }) {
-  const ref = useRef<HTMLElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-
-  const opacity = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.5, 0.8, 1],
-    [0, 1, 1, 1, 0],
-  );
-  const y = useTransform(scrollYProgress, [0, 0.5, 1], [54, 0, -54]);
-  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [-10, 0, 10]);
-  const rotateZ = useTransform(scrollYProgress, [0, 0.5, 1], [-2.5, 0, 2.5]);
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <motion.section
-      ref={ref}
-      style={{ opacity, y, rotateX, rotateZ }}
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 20, scale: 0.995 }}
+      whileInView={
+        shouldReduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }
+      }
+      viewport={{ once: true, amount: 0.18 }}
+      transition={{ duration: 0.42, ease: "easeOut" }}
       className={
         "rounded-2xl border border-[#d3d8d4] bg-[#ffffff] p-5 shadow-[0_24px_36px_-28px_rgba(0,0,0,0.16)] sm:p-6 " +
         (className ?? "")
@@ -65,6 +56,7 @@ function AnimatedTerminalCard({
 }
 
 export function TerminalPortfolio() {
+  const shouldReduceMotion = useReducedMotion();
   const iframeBlockedByHeaders = new Set(["thyrft", "ledgeriq"]);
   const [activeProjectSlug, setActiveProjectSlug] = useState<string | null>(
     null,
@@ -72,7 +64,7 @@ export function TerminalPortfolio() {
   const activeProjectRef = useRef<string | null>(null);
   const queuedProjectRef = useRef<string | null | undefined>(undefined);
   const flipTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const flipDurationMs = 760;
+  const flipDurationMs = shouldReduceMotion ? 0 : 520;
 
   useEffect(() => {
     activeProjectRef.current = activeProjectSlug;
@@ -87,6 +79,11 @@ export function TerminalPortfolio() {
   }, []);
 
   const queueAwareFlip = (targetSlug: string | null) => {
+    if (shouldReduceMotion) {
+      setActiveProjectSlug(null);
+      return;
+    }
+
     if (targetSlug === activeProjectRef.current) {
       return;
     }
@@ -130,9 +127,9 @@ export function TerminalPortfolio() {
 
       <section className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-8 pt-12 sm:px-6 sm:pt-16 md:pb-10">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+          animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
           className="rounded-3xl border border-[#d3d8d4] bg-[#ffffff] p-5 shadow-[0_24px_50px_-34px_rgba(0,0,0,0.18)] sm:p-8"
         >
           <p className="text-xs uppercase tracking-[0.2em] text-[#5f6662]">
@@ -222,15 +219,16 @@ export function TerminalPortfolio() {
             >
               <div className="[perspective:1600px]">
                 <div
-                  className="relative h-[360px] w-full rounded-2xl [transform-style:preserve-3d] transition-transform duration-[760ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] [will-change:transform] sm:h-[520px] md:h-[560px]"
+                  className="flip-scene relative h-[360px] w-full rounded-2xl transition-transform [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] [will-change:transform] sm:h-[520px] md:h-[560px]"
                   style={{
+                    transitionDuration: `${flipDurationMs}ms`,
                     transform:
-                      activeProjectSlug === project.slug
+                      !shouldReduceMotion && activeProjectSlug === project.slug
                         ? "rotateY(180deg)"
                         : "rotateY(0deg)",
                   }}
                 >
-                  <div className="absolute inset-0 overflow-hidden rounded-2xl border border-[#d3d8d4] bg-[#ffffff] shadow-[0_24px_38px_-26px_rgba(0,0,0,0.16)] [backface-visibility:hidden]">
+                  <div className="flip-face absolute inset-0 overflow-hidden rounded-2xl border border-[#d3d8d4] bg-[#ffffff] shadow-[0_24px_38px_-26px_rgba(0,0,0,0.16)]">
                     <div className="flex h-full flex-col">
                       <div className="flex items-center justify-between border-b border-[#d3d8d4] bg-[#f0f2ed] px-4 py-2">
                         <p className="text-[11px] uppercase tracking-[0.16em] text-[#0f766e]">
@@ -258,7 +256,7 @@ export function TerminalPortfolio() {
                     </div>
                   </div>
 
-                  <div className="absolute inset-0 hidden rounded-2xl border border-[#d3d8d4] bg-[#ffffff] p-6 text-[#111312] shadow-[0_24px_38px_-26px_rgba(0,0,0,0.16)] [transform:rotateY(180deg)] [backface-visibility:hidden] sm:block">
+                  <div className="flip-face absolute inset-0 hidden rounded-2xl border border-[#d3d8d4] bg-[#ffffff] p-6 text-[#111312] shadow-[0_24px_38px_-26px_rgba(0,0,0,0.16)] [transform:rotateY(180deg)] sm:block">
                     <p className="text-[11px] uppercase tracking-[0.16em] text-[#0f766e]">
                       {project.title}
                     </p>
