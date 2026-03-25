@@ -32,7 +32,7 @@ function TerminalCard({
   return (
     <section
       className={
-        "rounded-2xl border border-[#d3d8d4] bg-[#ffffff] p-5 shadow-[0_24px_36px_-28px_rgba(0,0,0,0.16)] sm:p-6 " +
+        "rounded-2xl border border-[#c6ddd7] bg-[linear-gradient(135deg,#ffffff_0%,#f3fbf8_100%)] p-5 shadow-[0_24px_36px_-28px_rgba(0,0,0,0.16)] sm:p-6 " +
         (className ?? "")
       }
     >
@@ -70,17 +70,15 @@ export function TerminalPortfolio() {
       </header>
 
       <section className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-8 pt-12 sm:px-6 sm:pt-16 md:pb-10">
-        <div className="rounded-3xl border border-[#d3d8d4] bg-[#ffffff] p-5 shadow-[0_24px_50px_-34px_rgba(0,0,0,0.18)] sm:p-8">
-          <p className="text-xs uppercase tracking-[0.2em] text-[#5f6662]">
-            Landing
-          </p>
-          <h1 className="mt-4 text-4xl font-bold leading-tight text-[#111312] sm:text-6xl md:max-w-4xl md:text-7xl">
+        <div className="rounded-3xl border border-[#c6ddd7] bg-[linear-gradient(145deg,#ffffff_0%,#eef9f5_100%)] p-5 shadow-[0_24px_50px_-34px_rgba(0,0,0,0.18)] sm:p-8">
+          <div className="h-1 w-24 rounded-full bg-[linear-gradient(90deg,#7ed8c7_0%,#9ce8bd_100%)]" />
+          <h1 className="mt-5 text-4xl font-bold leading-tight text-[#0d4f49] sm:text-6xl md:max-w-4xl md:text-7xl">
             {profile.name}
           </h1>
           <p className="mt-5 max-w-3xl text-base font-medium leading-relaxed text-[#3f4743] sm:text-lg md:text-xl">
             {profile.headline}
           </p>
-          <div className="mt-7 rounded-2xl border border-[#d3d8d4] bg-[#f0f2ed] p-4">
+          <div className="mt-7 rounded-2xl border border-[#c9dad4] bg-[linear-gradient(135deg,#f3f8f4_0%,#e9f7f1_100%)] p-4">
             <p className="text-xs text-[#5f6662]">terminal output</p>
             <p className="mt-2 text-base font-semibold text-[#111312]">
               $ whoami
@@ -152,17 +150,32 @@ export function TerminalPortfolio() {
               aria-label={`Open ${project.title} live deployment`}
               className="group/project block"
             >
-              <div className="overflow-hidden rounded-2xl border border-[#d3d8d4] bg-[#ffffff] shadow-[0_24px_38px_-26px_rgba(0,0,0,0.16)]">
-                <div className="flex items-center justify-between border-b border-[#d3d8d4] bg-[#f0f2ed] px-4 py-2">
+              <div className="overflow-hidden rounded-2xl border border-[#c6ddd7] bg-[linear-gradient(160deg,#ffffff_0%,#f2faf7_100%)] shadow-[0_24px_38px_-26px_rgba(0,0,0,0.16)]">
+                <div className="flex items-center justify-between border-b border-[#c6ddd7] bg-[linear-gradient(90deg,#e8f6f2_0%,#ecfaf7_100%)] px-4 py-2">
                   <p className="text-[11px] uppercase tracking-[0.16em] text-[#0f766e]">
                     {project.title}
                   </p>
                   <p className="text-[10px] text-[#5f6662]">live render</p>
                 </div>
-                <div className="relative h-[430px] w-full sm:h-[600px] md:h-[660px]">
+                <div className="p-4 sm:hidden">
+                  <p className="text-lg font-bold text-[#111312]">
+                    {project.subtitle}
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed text-[#3f4743]">
+                    {project.summary}
+                  </p>
+                  <p className="mt-3 text-xs font-medium text-[#0f766e]">
+                    On pressing, live demo will open in a new tab.
+                  </p>
+                  <span className="mt-3 inline-flex rounded-full border border-[#8dc5b1] bg-[#e6f6ef] px-3 py-1.5 text-sm font-semibold text-[#1d4f40]">
+                    Open Live Demo
+                  </span>
+                </div>
+
+                <div className="relative hidden h-[560px] w-full overflow-hidden bg-[#edf5f1] sm:block md:h-[640px]">
                   {iframeBlockedByHeaders.has(project.slug) ? (
                     <div
-                      className="h-full w-full bg-cover bg-center"
+                      className="h-full w-full bg-contain bg-center bg-no-repeat"
                       style={{
                         backgroundImage: `url(${staticProjectImages[project.slug] || getScreenshotPreview(project.previewUrl ?? project.liveUrl)})`,
                       }}
@@ -172,18 +185,11 @@ export function TerminalPortfolio() {
                       src={project.previewUrl ?? project.liveUrl}
                       title={`${project.title} live preview`}
                       loading="lazy"
-                      className="h-full w-full border-0 pointer-events-none"
+                      className="h-full w-full border-0"
                     />
                   )}
 
-                  <div className="absolute inset-x-0 bottom-0 bg-[#ffffff]/96 p-4 text-[#111312] sm:hidden">
-                    <p className="text-lg font-bold">{project.subtitle}</p>
-                    <p className="mt-2 text-sm leading-relaxed text-[#3f4743]">
-                      {project.summary}
-                    </p>
-                  </div>
-
-                  <div className="absolute inset-x-0 bottom-0 hidden bg-[#ffffff]/96 p-5 text-[#111312] group-hover/project:block">
+                  <div className="absolute inset-x-0 bottom-0 hidden bg-[#f7fffc]/96 p-5 text-[#111312] group-hover/project:block">
                     <p className="text-xl font-bold">{project.subtitle}</p>
                     <p className="mt-2 text-base leading-relaxed text-[#3f4743]">
                       {project.summary}
@@ -192,7 +198,7 @@ export function TerminalPortfolio() {
                       {project.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full border border-[#c7cfca] bg-[#f0f2ed] px-2.5 py-1 text-sm text-[#3f4743]"
+                          className="rounded-full border border-[#b8d8cd] bg-[#e7f6ef] px-2.5 py-1 text-sm text-[#2f4d43]"
                         >
                           {tag}
                         </span>
@@ -225,7 +231,7 @@ export function TerminalPortfolio() {
             {interestChips.map((chip) => (
               <span
                 key={chip}
-                className="rounded-full border border-[#c7cfca] bg-[#f0f2ed] px-3 py-1.5 text-xs text-[#3f4743]"
+                className="rounded-full border border-[#b8d8cd] bg-[#e7f6ef] px-3 py-1.5 text-xs text-[#2f4d43]"
               >
                 {chip}
               </span>
@@ -235,7 +241,7 @@ export function TerminalPortfolio() {
       </section>
 
       <section className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-10 sm:px-6">
-        <div className="rounded-2xl border border-[#d3d8d4] bg-[#ffffff] p-4 text-sm text-[#5f6662] sm:text-base">
+        <div className="rounded-2xl border border-[#c6ddd7] bg-[linear-gradient(140deg,#ffffff_0%,#f0faf6_100%)] p-4 text-sm text-[#5f6662] sm:text-base">
           <p>contact --email {contactLinks.email}</p>
           <p>contact --location {contactLinks.location}</p>
           <p className="mt-1 break-all">
