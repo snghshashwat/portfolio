@@ -1,7 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { ReactNode } from "react";
 import {
   contactLinks,
   education,
@@ -21,7 +20,7 @@ const staticProjectImages: Record<string, string> = {
   ledgeriq: "/renders/ledgeriq-render.png",
 };
 
-function AnimatedTerminalCard({
+function TerminalCard({
   title,
   children,
   className,
@@ -30,16 +29,8 @@ function AnimatedTerminalCard({
   children: ReactNode;
   className?: string;
 }) {
-  const shouldReduceMotion = useReducedMotion();
-
   return (
-    <motion.section
-      initial={shouldReduceMotion ? false : { opacity: 0, y: 20, scale: 0.995 }}
-      whileInView={
-        shouldReduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }
-      }
-      viewport={{ once: true, amount: 0.18 }}
-      transition={{ duration: 0.42, ease: "easeOut" }}
+    <section
       className={
         "rounded-2xl border border-[#d3d8d4] bg-[#ffffff] p-5 shadow-[0_24px_36px_-28px_rgba(0,0,0,0.16)] sm:p-6 " +
         (className ?? "")
@@ -51,59 +42,12 @@ function AnimatedTerminalCard({
       <div className="mt-4 text-base font-medium leading-relaxed text-[#111312] sm:text-lg">
         {children}
       </div>
-    </motion.section>
+    </section>
   );
 }
 
 export function TerminalPortfolio() {
-  const shouldReduceMotion = useReducedMotion();
   const iframeBlockedByHeaders = new Set(["thyrft", "ledgeriq"]);
-  const [activeProjectSlug, setActiveProjectSlug] = useState<string | null>(
-    null,
-  );
-  const activeProjectRef = useRef<string | null>(null);
-  const queuedProjectRef = useRef<string | null | undefined>(undefined);
-  const flipTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const flipDurationMs = shouldReduceMotion ? 0 : 520;
-
-  useEffect(() => {
-    activeProjectRef.current = activeProjectSlug;
-  }, [activeProjectSlug]);
-
-  useEffect(() => {
-    return () => {
-      if (flipTimerRef.current) {
-        clearTimeout(flipTimerRef.current);
-      }
-    };
-  }, []);
-
-  const queueAwareFlip = (targetSlug: string | null) => {
-    if (shouldReduceMotion) {
-      setActiveProjectSlug(null);
-      return;
-    }
-
-    if (targetSlug === activeProjectRef.current) {
-      return;
-    }
-
-    if (flipTimerRef.current) {
-      queuedProjectRef.current = targetSlug;
-      return;
-    }
-
-    setActiveProjectSlug(targetSlug);
-    flipTimerRef.current = setTimeout(() => {
-      flipTimerRef.current = null;
-
-      if (queuedProjectRef.current !== undefined) {
-        const queued = queuedProjectRef.current;
-        queuedProjectRef.current = undefined;
-        queueAwareFlip(queued ?? null);
-      }
-    }, flipDurationMs);
-  };
 
   return (
     <main className="relative min-h-screen overflow-x-clip bg-[#f6f7f2] text-[17px] font-medium text-[#111312] sm:text-[18px]">
@@ -126,12 +70,7 @@ export function TerminalPortfolio() {
       </header>
 
       <section className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-8 pt-12 sm:px-6 sm:pt-16 md:pb-10">
-        <motion.div
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
-          animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: "easeOut" }}
-          className="rounded-3xl border border-[#d3d8d4] bg-[#ffffff] p-5 shadow-[0_24px_50px_-34px_rgba(0,0,0,0.18)] sm:p-8"
-        >
+        <div className="rounded-3xl border border-[#d3d8d4] bg-[#ffffff] p-5 shadow-[0_24px_50px_-34px_rgba(0,0,0,0.18)] sm:p-8">
           <p className="text-xs uppercase tracking-[0.2em] text-[#5f6662]">
             Landing
           </p>
@@ -152,17 +91,17 @@ export function TerminalPortfolio() {
             </p>
             <p className="text-base text-[#3f4743]">{profile.goals}</p>
           </div>
-        </motion.div>
+        </div>
       </section>
 
       <section
         id="about"
         className="relative z-10 mx-auto grid w-full max-w-6xl gap-5 px-4 pb-12 sm:px-6 md:grid-cols-2"
       >
-        <AnimatedTerminalCard title="Profile Summary">
+        <TerminalCard title="Profile Summary">
           <p>{profile.summary}</p>
-        </AnimatedTerminalCard>
-        <AnimatedTerminalCard title="Education">
+        </TerminalCard>
+        <TerminalCard title="Education">
           {education.map((item) => (
             <div key={item.degree} className="space-y-2">
               <p className="font-semibold text-[#111312]">{item.degree}</p>
@@ -170,7 +109,7 @@ export function TerminalPortfolio() {
               <p className="text-[#5f6662]">{item.graduation}</p>
             </div>
           ))}
-        </AnimatedTerminalCard>
+        </TerminalCard>
       </section>
 
       <section
@@ -179,7 +118,7 @@ export function TerminalPortfolio() {
       >
         <div className="space-y-5">
           {experience.map((item) => (
-            <AnimatedTerminalCard
+            <TerminalCard
               key={`${item.role}-${item.organization}`}
               title={`${item.role} | ${item.organization}`}
             >
@@ -189,7 +128,7 @@ export function TerminalPortfolio() {
                   <li key={line}>- {line}</li>
                 ))}
               </ul>
-            </AnimatedTerminalCard>
+            </TerminalCard>
           ))}
         </div>
       </section>
@@ -212,61 +151,44 @@ export function TerminalPortfolio() {
               rel="noreferrer"
               aria-label={`Open ${project.title} live deployment`}
               className="group/project block"
-              onMouseEnter={() => queueAwareFlip(project.slug)}
-              onMouseLeave={() => queueAwareFlip(null)}
-              onFocus={() => queueAwareFlip(project.slug)}
-              onBlur={() => queueAwareFlip(null)}
             >
-              <div className="[perspective:1600px]">
-                <div
-                  className="flip-scene relative h-[360px] w-full rounded-2xl transition-transform [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] [will-change:transform] sm:h-[520px] md:h-[560px]"
-                  style={{
-                    transitionDuration: `${flipDurationMs}ms`,
-                    transform:
-                      !shouldReduceMotion && activeProjectSlug === project.slug
-                        ? "rotateY(180deg)"
-                        : "rotateY(0deg)",
-                  }}
-                >
-                  <div className="flip-face absolute inset-0 overflow-hidden rounded-2xl border border-[#d3d8d4] bg-[#ffffff] shadow-[0_24px_38px_-26px_rgba(0,0,0,0.16)]">
-                    <div className="flex h-full flex-col">
-                      <div className="flex items-center justify-between border-b border-[#d3d8d4] bg-[#f0f2ed] px-4 py-2">
-                        <p className="text-[11px] uppercase tracking-[0.16em] text-[#0f766e]">
-                          {project.title}
-                        </p>
-                        <p className="text-[10px] text-[#5f6662]">
-                          live render
-                        </p>
-                      </div>
-                      {iframeBlockedByHeaders.has(project.slug) ? (
-                        <div
-                          className="w-full flex-1 bg-cover bg-center"
-                          style={{
-                            backgroundImage: `url(${staticProjectImages[project.slug] || getScreenshotPreview(project.previewUrl ?? project.liveUrl)})`,
-                          }}
-                        />
-                      ) : (
-                        <iframe
-                          src={project.previewUrl ?? project.liveUrl}
-                          title={`${project.title} live preview`}
-                          loading="lazy"
-                          className="w-full flex-1 border-0 pointer-events-none"
-                        />
-                      )}
-                    </div>
-                  </div>
+              <div className="overflow-hidden rounded-2xl border border-[#d3d8d4] bg-[#ffffff] shadow-[0_24px_38px_-26px_rgba(0,0,0,0.16)]">
+                <div className="flex items-center justify-between border-b border-[#d3d8d4] bg-[#f0f2ed] px-4 py-2">
+                  <p className="text-[11px] uppercase tracking-[0.16em] text-[#0f766e]">
+                    {project.title}
+                  </p>
+                  <p className="text-[10px] text-[#5f6662]">live render</p>
+                </div>
+                <div className="relative h-[430px] w-full sm:h-[600px] md:h-[660px]">
+                  {iframeBlockedByHeaders.has(project.slug) ? (
+                    <div
+                      className="h-full w-full bg-cover bg-center"
+                      style={{
+                        backgroundImage: `url(${staticProjectImages[project.slug] || getScreenshotPreview(project.previewUrl ?? project.liveUrl)})`,
+                      }}
+                    />
+                  ) : (
+                    <iframe
+                      src={project.previewUrl ?? project.liveUrl}
+                      title={`${project.title} live preview`}
+                      loading="lazy"
+                      className="h-full w-full border-0 pointer-events-none"
+                    />
+                  )}
 
-                  <div className="flip-face absolute inset-0 hidden rounded-2xl border border-[#d3d8d4] bg-[#ffffff] p-6 text-[#111312] shadow-[0_24px_38px_-26px_rgba(0,0,0,0.16)] [transform:rotateY(180deg)] sm:block">
-                    <p className="text-[11px] uppercase tracking-[0.16em] text-[#0f766e]">
-                      {project.title}
-                    </p>
-                    <p className="mt-3 text-2xl font-bold text-[#111312]">
-                      {project.subtitle}
-                    </p>
-                    <p className="mt-3 text-base leading-relaxed text-[#3f4743]">
+                  <div className="absolute inset-x-0 bottom-0 bg-[#ffffff]/96 p-4 text-[#111312] sm:hidden">
+                    <p className="text-lg font-bold">{project.subtitle}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-[#3f4743]">
                       {project.summary}
                     </p>
-                    <div className="mt-5 flex flex-wrap gap-2">
+                  </div>
+
+                  <div className="absolute inset-x-0 bottom-0 hidden bg-[#ffffff]/96 p-5 text-[#111312] group-hover/project:block">
+                    <p className="text-xl font-bold">{project.subtitle}</p>
+                    <p className="mt-2 text-base leading-relaxed text-[#3f4743]">
+                      {project.summary}
+                    </p>
+                    <div className="mt-4 flex flex-wrap gap-2">
                       {project.tags.map((tag) => (
                         <span
                           key={tag}
@@ -276,9 +198,6 @@ export function TerminalPortfolio() {
                         </span>
                       ))}
                     </div>
-                    <p className="mt-6 text-sm font-semibold text-[#0f766e]">
-                      click to open deployed project
-                    </p>
                   </div>
                 </div>
               </div>
@@ -288,7 +207,7 @@ export function TerminalPortfolio() {
       </section>
 
       <section className="relative z-10 mx-auto grid w-full max-w-6xl gap-5 px-4 pb-12 sm:px-6 md:grid-cols-2">
-        <AnimatedTerminalCard title="Skills">
+        <TerminalCard title="Skills">
           <div className="space-y-3">
             {skillGroups.map((group) => (
               <div key={group.category}>
@@ -299,9 +218,9 @@ export function TerminalPortfolio() {
               </div>
             ))}
           </div>
-        </AnimatedTerminalCard>
+        </TerminalCard>
 
-        <AnimatedTerminalCard title="Interests">
+        <TerminalCard title="Interests">
           <div className="flex flex-wrap gap-2">
             {interestChips.map((chip) => (
               <span
@@ -312,7 +231,7 @@ export function TerminalPortfolio() {
               </span>
             ))}
           </div>
-        </AnimatedTerminalCard>
+        </TerminalCard>
       </section>
 
       <section className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-10 sm:px-6">
