@@ -1,17 +1,36 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function CursorGlow() {
   const glowRef = useRef<HTMLDivElement>(null);
+  const [enabled, setEnabled] = useState(true);
 
   useEffect(() => {
+    const onModeChange = (event: Event) => {
+      const customEvent = event as CustomEvent<{ enabled?: boolean }>;
+      setEnabled(Boolean(customEvent.detail?.enabled));
+    };
+
+    window.addEventListener("cursor-performance-mode", onModeChange);
+    return () =>
+      window.removeEventListener("cursor-performance-mode", onModeChange);
+  }, []);
+
+  useEffect(() => {
+    if (!enabled) {
+      return;
+    }
+
     const glow = glowRef.current;
     if (!glow) {
       return;
     }
 
-    if (window.matchMedia("(pointer: coarse)").matches) {
+    if (
+      window.matchMedia("(pointer: coarse)").matches ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
       return;
     }
 
@@ -58,7 +77,11 @@ export function CursorGlow() {
       cancelAnimationFrame(rafId);
       window.removeEventListener("mousemove", update);
     };
-  }, []);
+  }, [enabled]);
+
+  if (!enabled) {
+    return null;
+  }
 
   return (
     <div

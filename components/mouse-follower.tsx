@@ -1,21 +1,35 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function MouseFollower() {
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
+  const [enabled, setEnabled] = useState(true);
 
   useEffect(() => {
+    if (!enabled) {
+      return;
+    }
+
     const dot = dotRef.current;
     const ring = ringRef.current;
     if (!dot || !ring) {
       return;
     }
 
-    if (window.matchMedia("(pointer: coarse)").matches) {
+    if (
+      window.matchMedia("(pointer: coarse)").matches ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
       return;
     }
+
+    const root = document.documentElement;
+    root.classList.add("custom-cursor-active");
+    window.dispatchEvent(
+      new CustomEvent("cursor-performance-mode", { detail: { enabled: true } }),
+    );
 
     const target = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     const current = { x: target.x, y: target.y };
@@ -75,7 +89,37 @@ export function MouseFollower() {
     };
 
     let rafId = 0;
+    let prevFrame = performance.now();
+    let frameCount = 0;
+    let totalFrameTime = 0;
+
+    const disableForPerformance = () => {
+      root.classList.remove("custom-cursor-active");
+      window.dispatchEvent(
+        new CustomEvent("cursor-performance-mode", {
+          detail: { enabled: false },
+        }),
+      );
+      setEnabled(false);
+    };
+
     const animate = () => {
+      const now = performance.now();
+      const frameTime = now - prevFrame;
+      prevFrame = now;
+
+      if (frameCount < 120) {
+        frameCount += 1;
+        totalFrameTime += frameTime;
+        if (frameCount === 120) {
+          const averageFrameTime = totalFrameTime / frameCount;
+          if (averageFrameTime > 22) {
+            disableForPerformance();
+            return;
+          }
+        }
+      }
+
       const spring = state.hovered ? 0.16 : 0.13;
       current.x += (target.x - current.x) * spring;
       current.y += (target.y - current.y) * spring;
@@ -103,6 +147,7 @@ export function MouseFollower() {
 
     return () => {
       cancelAnimationFrame(rafId);
+      root.classList.remove("custom-cursor-active");
       if (state.burstTimeout) {
         clearTimeout(state.burstTimeout);
       }
@@ -111,7 +156,11 @@ export function MouseFollower() {
       window.removeEventListener("mouseup", onUp);
       window.removeEventListener("scroll", onScroll);
     };
-  }, []);
+  }, [enabled]);
+
+  if (!enabled) {
+    return null;
+  }
 
   return (
     <>
