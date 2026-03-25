@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Space_Mono } from "next/font/google";
+import { CursorGlow } from "@/components/cursor-glow";
+import { MouseFollower } from "@/components/mouse-follower";
 import "./globals.css";
 
 const spaceMono = Space_Mono({
@@ -26,6 +28,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${spaceMono.variable} h-full antialiased`}>
       <body className="min-h-full bg-[var(--background)] text-[var(--foreground)]">
+        <CursorGlow />
+        <MouseFollower />
         {children}
       </body>
     </html>

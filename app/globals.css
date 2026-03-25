@@ -2,10 +2,10 @@
 
 :root {
   --background: #000000;
-  --foreground: #ffffff;
-  --muted: #888888;
-  --accent: #00ffff;
-  --accent-strong: #ff00ff;
+  --foreground: #f5f7f6;
+  --muted: #8a908d;
+  --accent: #86f6a5;
+  --accent-strong: #98f8ff;
 }
 
 @theme inline {
@@ -32,12 +32,25 @@ html {
 }
 
 ::selection {
-  background: rgba(0, 255, 255, 0.35);
+  background: rgba(152, 248, 255, 0.28);
   color: inherit;
 }
 
 a {
   text-decoration: none;
+}
+
+@media (pointer: fine) {
+  html,
+  body,
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  [role="button"] {
+    cursor: none !important;
+  }
 }
 
 body::before {
@@ -49,12 +62,12 @@ body::before {
   background:
     radial-gradient(
       circle at 12% 18%,
-      color-mix(in srgb, var(--accent-strong) 24%, transparent) 0%,
+      color-mix(in srgb, var(--accent) 10%, transparent) 0%,
       transparent 48%
     ),
     radial-gradient(
       circle at 86% 86%,
-      color-mix(in srgb, var(--accent) 19%, transparent) 0%,
+      color-mix(in srgb, var(--accent-strong) 8%, transparent) 0%,
       transparent 52%
     );
 }
@@ -74,8 +87,8 @@ main::before {
   pointer-events: none;
   z-index: -1;
   background-image:
-    linear-gradient(to right, rgba(0, 255, 255, 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
   background-size: 62px 62px;
   mask-image: radial-gradient(circle at center, black 40%, transparent 95%);
 }

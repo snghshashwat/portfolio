@@ -128,10 +128,8 @@ export const interestChips = [
 
 export const contactLinks = {
   email: "shashwatsngh.work@gmail.com",
-  phone: "+91-844-846-3637",
   location: "Delhi, India",
   linkedin: "https://www.linkedin.com/in/shashwat-singh-57220420b/",
-  github: "https://github.com/shashwatsngh",
   leetcode: "https://leetcode.com/u/shashwatsngh/",
 };
 

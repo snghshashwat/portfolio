@@ -23,7 +23,7 @@ export function ContactSection() {
                 Let&apos;s build something meaningful.
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3 text-sm text-blue-700 dark:text-slate-300">
+            <CardContent className="space-y-3 text-base text-blue-700 dark:text-slate-300 sm:text-lg">
               <Link
                 href={`mailto:${contactLinks.email}`}
                 className="block hover:underline"
@@ -37,10 +37,10 @@ export function ContactSection() {
                 LinkedIn
               </Link>
               <Link
-                href={contactLinks.github}
+                href={contactLinks.leetcode}
                 className="block hover:underline"
               >
-                GitHub
+                LeetCode
               </Link>
             </CardContent>
           </Card>

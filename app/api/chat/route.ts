@@ -39,8 +39,8 @@ function buildSystemPrompt() {
     `Experience: ${experienceText}`,
     `Skills: ${skillsText}`,
     `Projects: ${projectsText}`,
-    `Contact: Email ${contactLinks.email}, Phone ${contactLinks.phone}, Location ${contactLinks.location}`,
-    `Links: LinkedIn ${contactLinks.linkedin}, GitHub ${contactLinks.github}, LeetCode ${contactLinks.leetcode}`,
+    `Contact: Email ${contactLinks.email}, Location ${contactLinks.location}`,
+    `Links: LinkedIn ${contactLinks.linkedin}, LeetCode ${contactLinks.leetcode}`,
   ].join("\n");
 }
 
