@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #000000;
-  --foreground: #f5f7f6;
-  --muted: #8a908d;
-  --accent: #86f6a5;
-  --accent-strong: #98f8ff;
+  --background: #f6f7f2;
+  --foreground: #111312;
+  --muted: #5f6662;
+  --accent: #0ea5a8;
+  --accent-strong: #10b981;
 }
 
 @theme inline {
@@ -32,25 +32,12 @@ html {
 }
 
 ::selection {
-  background: rgba(152, 248, 255, 0.28);
+  background: rgba(16, 185, 129, 0.2);
   color: inherit;
 }
 
 a {
   text-decoration: none;
-}
-
-@media (pointer: fine) {
-  html.custom-cursor-active,
-  html.custom-cursor-active body,
-  html.custom-cursor-active a,
-  html.custom-cursor-active button,
-  html.custom-cursor-active input,
-  html.custom-cursor-active textarea,
-  html.custom-cursor-active select,
-  html.custom-cursor-active [role="button"] {
-    cursor: none !important;
-  }
 }
 
 body::before {
@@ -62,12 +49,12 @@ body::before {
   background:
     radial-gradient(
       circle at 12% 18%,
-      color-mix(in srgb, var(--accent) 10%, transparent) 0%,
+      color-mix(in srgb, var(--accent) 14%, transparent) 0%,
       transparent 48%
     ),
     radial-gradient(
       circle at 86% 86%,
-      color-mix(in srgb, var(--accent-strong) 8%, transparent) 0%,
+      color-mix(in srgb, var(--accent-strong) 10%, transparent) 0%,
       transparent 52%
     );
 }
@@ -87,8 +74,8 @@ main::before {
   pointer-events: none;
   z-index: -1;
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    linear-gradient(to right, rgba(17, 19, 18, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(17, 19, 18, 0.045) 1px, transparent 1px);
   background-size: 62px 62px;
-  mask-image: radial-gradient(circle at center, black 40%, transparent 95%);
+  mask-image: radial-gradient(circle at center, black 36%, transparent 95%);
 }
