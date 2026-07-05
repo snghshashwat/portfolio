@@ -74,6 +74,7 @@ export const experience: Job[] = [
     role: "Consulting Intern, Telecom",
     start: "Jun 2025",
     end: "Jul 2025",
+    location: "Remote",
     summary:
       "Market research and data analysis for telecom clients. Fragmented datasets into decision-ready briefs.",
     tags: ["Research", "Data Analysis", "Telecom"],
@@ -92,12 +93,13 @@ export const experience: Job[] = [
   },
   {
     company: "Team Fateh, Formula Student",
-    role: "High Voltage & Management",
+    role: "High Voltage & Management Society",
     start: "Nov 2023",
     end: "Nov 2024",
+    location: "On-site, Thapar Institute",
     summary:
       "Owned Cost BOM, CEXP, and P&L. Represented India at Formula Student Italy 2024. 5th overall, 6th design, 6th cost. 1st nationally in Pi-EV procurement.",
-    tags: ["Cost Engineering", "Formula Student"],
+    tags: ["Cost Engineering", "Formula Student", "Society"],
   },
 ];
 
