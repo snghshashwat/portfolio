@@ -85,7 +85,7 @@ export const experience: Job[] = [
     role: "ML Research Intern",
     start: "Apr 2025",
     end: "Jul 2025",
-    location: "On-site, IIT Kanpur",
+    location: "On-site",
     summary:
       "AI-powered anomaly detection for electric-vehicle cybersecurity. Data pipelines through model evaluation.",
     tags: ["Anomaly Detection", "Cybersecurity", "EV"],
