@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { TextReveal } from "@/components/ui/text-reveal";
 
 type Props = {
   index: string;
@@ -15,9 +16,12 @@ export function SectionHeader({ index, title, kicker, className }: Props) {
         <span className="h-px w-8 bg-border" />
         <span>{kicker ?? title}</span>
       </div>
-      <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-5xl">
-        {title}
-      </h2>
+      <TextReveal
+        as="h2"
+        text={title}
+        className="text-3xl font-semibold tracking-tight text-foreground md:text-5xl"
+        stagger={0.025}
+      />
     </div>
   );
 }

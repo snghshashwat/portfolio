@@ -126,6 +126,12 @@ body {
   }
 }
 
+/* Native cursor hidden when custom cursor is active */
+html.cursor-none,
+html.cursor-none * {
+  cursor: none !important;
+}
+
 /* Focus rings */
 :focus-visible {
   outline: 1.5px solid var(--accent);

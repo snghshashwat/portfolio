@@ -40,16 +40,15 @@ export const about = {
   quickFacts: [
     { k: "Based in", v: "Delhi, IN" },
     { k: "Studying", v: "B.E. ECE, Thapar" },
-    { k: "CGPA", v: "8.4 / 10" },
     { k: "Currently", v: "Rezo.ai" },
     { k: "Graduating", v: "2027" },
     { k: "Focus", v: "Applied AI, systems" },
   ],
   stats: [
-    { n: "5+", label: "Internships & research stints" },
+    { n: "5+", label: "Internships and research stints" },
     { n: "5th", label: "Formula Student Italy 2024" },
     { n: "3", label: "AI products shipped" },
-    { n: "8.4", label: "CGPA, ECE Thapar" },
+    { n: "1st", label: "Nationally, Pi-EV Procurement" },
   ],
 };
 

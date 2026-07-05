@@ -1,6 +1,7 @@
 import { projects, secondaryProjects } from "@/lib/data";
 import { SectionHeader } from "@/components/ui/section-header";
 import { Reveal } from "@/components/ui/reveal";
+import { TextScramble } from "@/components/ui/text-scramble";
 import { cn } from "@/lib/utils";
 
 export function Projects() {
@@ -49,7 +50,7 @@ export function Projects() {
                     <div className="absolute inset-0 flex items-end p-6 md:p-8">
                       <div>
                         <h3 className="font-serif text-4xl italic leading-none text-foreground md:text-6xl">
-                          {p.title}
+                          <TextScramble>{p.title}</TextScramble>
                         </h3>
                         <p className="mt-2 max-w-xl text-sm text-muted-strong md:text-base">
                           {p.tagline}

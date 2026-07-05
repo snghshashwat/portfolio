@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/data";
 import { CursorSpotlight } from "@/components/layout/cursor-spotlight";
+import { CustomCursor } from "@/components/layout/custom-cursor";
 import { SmoothScroll } from "@/components/layout/smooth-scroll";
 import { TopNav } from "@/components/layout/top-nav";
 import { Footer } from "@/components/layout/footer";
@@ -90,6 +91,7 @@ export default function RootLayout({
       <body className="grain spotlight relative min-h-screen bg-background text-foreground">
         <SmoothScroll />
         <CursorSpotlight />
+        <CustomCursor />
         <TopNav />
         <main className="relative z-10">{children}</main>
         <Footer />
