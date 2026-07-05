@@ -6,7 +6,7 @@ export const site = {
   email: "shashwatsngh.work@gmail.com",
   resumeUrl: "/resume.pdf",
   socials: {
-    github: "https://github.com/snghshashwat",
+    github: "https://github.com/Shashwatsngh",
     linkedin: "https://www.linkedin.com/in/shashwat-singh-57220420b/",
     x: "https://x.com/shashwtsngh",
     leetcode: "https://leetcode.com/u/shashwatsngh/",
@@ -137,7 +137,7 @@ export const projects: Project[] = [
     tech: ["Python", "FastAPI", "FAISS", "Sentence Transformers", "React"],
     status: "shipped",
     year: "2025",
-    links: [{ label: "GitHub", href: "https://github.com/snghshashwat" }],
+    links: [{ label: "GitHub", href: "https://github.com/Shashwatsngh" }],
     accent: "from-emerald-400/25 to-cyan-400/10",
   },
   {

@@ -45,7 +45,7 @@ Drop `resume.pdf` into `public/` and it's linked from the hero automatically.
 Push to GitHub, then import to Vercel. Zero config needed.
 
 ```bash
-git remote add origin git@github.com:snghshashwat/portfolio.git
+git remote add origin git@github.com:Shashwatsngh/portfolio.git
 git push -u origin main
 ```
 
