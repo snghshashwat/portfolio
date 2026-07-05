@@ -28,9 +28,11 @@ export function Experience() {
                   <span className="text-muted">
                     {job.start} → {job.end}
                   </span>
-                  <span className="uppercase tracking-widest text-muted-strong">
-                    {job.location ?? "Remote / On-site"}
-                  </span>
+                  {job.location && (
+                    <span className="uppercase tracking-widest text-muted-strong">
+                      {job.location}
+                    </span>
+                  )}
                 </div>
 
                 {/* Body col */}

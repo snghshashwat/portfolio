@@ -24,22 +24,6 @@ export function About() {
                 Right now I&apos;m most drawn to work at the intersection of applied ML and systems. Voice models, RAG pipelines, agent tooling, and the plumbing that makes them fast and honest.
               </p>
             </Reveal>
-
-            {/* Big stats row */}
-            <div className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-4">
-              {about.stats.map((s, i) => (
-                <Reveal key={s.label} delay={0.1 + i * 0.05}>
-                  <div className="flex h-full flex-col justify-between gap-6 bg-background p-5 md:p-6">
-                    <span className="font-serif text-4xl leading-none text-accent md:text-5xl">
-                      {s.n}
-                    </span>
-                    <span className="font-mono text-[10px] uppercase leading-tight tracking-widest text-muted">
-                      {s.label}
-                    </span>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
           </div>
 
           <div className="space-y-8">

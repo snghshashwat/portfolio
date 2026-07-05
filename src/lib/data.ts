@@ -44,12 +44,6 @@ export const about = {
     { k: "Graduating", v: "2027" },
     { k: "Focus", v: "Applied AI, systems" },
   ],
-  stats: [
-    { n: "5+", label: "Internships and research stints" },
-    { n: "5th", label: "Formula Student Italy 2024" },
-    { n: "3", label: "AI products shipped" },
-    { n: "1st", label: "Nationally, Pi-EV Procurement" },
-  ],
 };
 
 export type Job = {
@@ -69,6 +63,7 @@ export const experience: Job[] = [
     role: "Data Science Intern",
     start: "Jun 2026",
     end: "Present",
+    location: "On-site, Noida",
     summary:
       "Benchmarking open-source voice models across latency, quality, and scale. Building an internal AI-powered code sanity tool.",
     tags: ["Voice AI", "Benchmarks", "LLM Tooling", "Python"],
@@ -89,6 +84,7 @@ export const experience: Job[] = [
     role: "ML Research Intern",
     start: "Apr 2025",
     end: "Jul 2025",
+    location: "On-site, IIT Kanpur",
     summary:
       "AI-powered anomaly detection for electric-vehicle cybersecurity. Data pipelines through model evaluation.",
     tags: ["Anomaly Detection", "Cybersecurity", "EV"],
@@ -102,15 +98,6 @@ export const experience: Job[] = [
     summary:
       "Owned Cost BOM, CEXP, and P&L. Represented India at Formula Student Italy 2024. 5th overall, 6th design, 6th cost. 1st nationally in Pi-EV procurement.",
     tags: ["Cost Engineering", "Formula Student"],
-  },
-  {
-    company: "ACM, Thapar Institute",
-    role: "Active Member",
-    start: "Sept 2023",
-    end: "Sept 2024",
-    summary:
-      "Campus dev community. 3rd place, inter-society Code Sprint.",
-    tags: ["Community", "CP"],
   },
 ];
 
