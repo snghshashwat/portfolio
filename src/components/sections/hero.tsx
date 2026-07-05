@@ -6,6 +6,7 @@ import { intro, site } from "@/lib/data";
 import { LocalTime } from "@/components/ui/local-time";
 import { Magnetic } from "@/components/ui/magnetic";
 import { StatusTicker } from "@/components/ui/status-ticker";
+import { useWebGLCapable } from "@/lib/use-webgl-capable";
 
 const HeroOrb = dynamic(
   () => import("@/components/webgl/hero-orb").then((m) => m.HeroOrb),
@@ -14,6 +15,7 @@ const HeroOrb = dynamic(
 
 export function Hero() {
   const reduce = useReducedMotion();
+  const capable = useWebGLCapable();
 
   return (
     <section
@@ -22,7 +24,7 @@ export function Hero() {
     >
       {/* Neural sphere — right side on desktop, behind text on mobile */}
       <div className="absolute right-[-10%] top-[8%] h-[70svh] w-[70svh] md:right-[-6%] md:top-1/2 md:h-[88svh] md:w-[88svh] md:-translate-y-1/2">
-        <HeroOrb />
+        {capable ? <HeroOrb /> : <StaticOrb />}
       </div>
 
       {/* Vignette to focus text left */}
@@ -151,5 +153,22 @@ function Line({
         </motion.span>
       ))}
     </span>
+  );
+}
+
+/** Lightweight CSS sphere shown on small / low-end / reduced-motion devices. */
+function StaticOrb() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div
+        className="h-[62%] w-[62%] rounded-full"
+        style={{
+          background:
+            "radial-gradient(35% 35% at 32% 28%, rgba(255,243,221,0.22), transparent 60%), radial-gradient(circle at 68% 72%, rgba(232,213,183,0.10), transparent 55%), radial-gradient(circle at 50% 50%, #16130f 0%, #0c0b0a 70%)",
+          boxShadow:
+            "inset 0 0 80px rgba(232,213,183,0.12), 0 0 120px rgba(232,213,183,0.06)",
+        }}
+      />
+    </div>
   );
 }

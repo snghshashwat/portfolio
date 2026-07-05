@@ -2,17 +2,13 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/data";
-import dynamic from "next/dynamic";
 import { CursorSpotlight } from "@/components/layout/cursor-spotlight";
 import { CustomCursor } from "@/components/layout/custom-cursor";
 import { SmoothScroll } from "@/components/layout/smooth-scroll";
 import { ScrollProgress } from "@/components/layout/scroll-progress";
 import { TopNav } from "@/components/layout/top-nav";
 import { Footer } from "@/components/layout/footer";
-
-const NeuralField = dynamic(
-  () => import("@/components/webgl/neural-field").then((m) => m.NeuralField),
-);
+import { NeuralBackdrop } from "@/components/webgl/neural-backdrop";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -97,7 +93,7 @@ export default function RootLayout({
       <body className="grain spotlight relative min-h-screen bg-background text-foreground">
         <SmoothScroll />
         <ScrollProgress />
-        <NeuralField />
+        <NeuralBackdrop />
         <CursorSpotlight />
         <CustomCursor />
         <TopNav />
