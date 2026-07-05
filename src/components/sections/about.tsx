@@ -9,7 +9,7 @@ export function About() {
       className="relative scroll-mt-24 px-6 py-[var(--spacing-section)] md:px-10"
     >
       <div className="mx-auto max-w-6xl">
-        <SectionHeader index="01" title="About" kicker="Who is this guy" />
+        <SectionHeader index="01" title="About" kicker="// context window" />
 
         <div className="grid gap-12 md:grid-cols-[1.5fr_1fr] md:gap-16">
           <div>

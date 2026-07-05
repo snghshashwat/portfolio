@@ -11,7 +11,7 @@ export function Skills() {
       className="relative scroll-mt-24 px-6 py-[var(--spacing-section)] md:px-10"
     >
       <div className="mx-auto max-w-6xl">
-        <SectionHeader index="04" title="Stack" kicker="What I reach for" />
+        <SectionHeader index="04" title="Stack" kicker="// dependencies" />
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {stack.map((group, i) => (

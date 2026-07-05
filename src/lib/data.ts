@@ -31,7 +31,7 @@ export const intro = {
   line2: "systems at the edge",
   line3: "of AI and code.",
   subhead:
-    "Student at Thapar. Data Science Intern at Rezo.ai. I turn fuzzy problems into fast, useful software.",
+    "Student at Thapar. Data Science Intern at Rezo.ai. I build with LLMs, RAG, and agents, and the systems that make them fast and honest.",
 };
 
 export const about = {

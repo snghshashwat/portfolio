@@ -11,7 +11,7 @@ export function Projects() {
       className="relative scroll-mt-24 px-6 py-[var(--spacing-section)] md:px-10"
     >
       <div className="mx-auto max-w-6xl">
-        <SectionHeader index="03" title="Selected work" kicker="Things I've shipped" />
+        <SectionHeader index="03" title="Selected work" kicker="// deployments" />
 
         <div className="space-y-24 md:space-y-32">
           {projects.map((p, i) => (

@@ -9,7 +9,7 @@ export function Experience() {
       className="relative scroll-mt-24 px-6 py-[var(--spacing-section)] md:px-10"
     >
       <div className="mx-auto max-w-6xl">
-        <SectionHeader index="02" title="Work" kicker="Roles & Research" />
+        <SectionHeader index="02" title="Work" kicker="// training runs" />
 
         <ol className="relative">
           {experience.map((job, i) => (

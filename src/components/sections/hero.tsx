@@ -5,13 +5,10 @@ import { motion, useReducedMotion } from "motion/react";
 import { intro, site } from "@/lib/data";
 import { LocalTime } from "@/components/ui/local-time";
 import { Magnetic } from "@/components/ui/magnetic";
+import { StatusTicker } from "@/components/ui/status-ticker";
 
 const HeroOrb = dynamic(
   () => import("@/components/webgl/hero-orb").then((m) => m.HeroOrb),
-  { ssr: false },
-);
-const ParticleField = dynamic(
-  () => import("@/components/webgl/particle-field").then((m) => m.ParticleField),
   { ssr: false },
 );
 
@@ -23,13 +20,8 @@ export function Hero() {
       id="top"
       className="relative flex min-h-[100svh] items-center overflow-hidden px-6 pt-32 md:px-10"
     >
-      {/* Ambient particle backdrop */}
-      <div className="absolute inset-0 opacity-70">
-        <ParticleField />
-      </div>
-
-      {/* Orb — right side on desktop, behind text on mobile */}
-      <div className="absolute right-[-10%] top-[8%] h-[70svh] w-[70svh] md:right-[-8%] md:top-1/2 md:h-[85svh] md:w-[85svh] md:-translate-y-1/2">
+      {/* Neural sphere — right side on desktop, behind text on mobile */}
+      <div className="absolute right-[-10%] top-[8%] h-[70svh] w-[70svh] md:right-[-6%] md:top-1/2 md:h-[88svh] md:w-[88svh] md:-translate-y-1/2">
         <HeroOrb />
       </div>
 
@@ -41,13 +33,16 @@ export function Hero() {
           initial={reduce ? undefined : { opacity: 0, y: 8 }}
           animate={reduce ? undefined : { opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest text-muted-strong backdrop-blur"
+          className="mb-8 flex flex-wrap items-center gap-3"
         >
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-live opacity-75" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-live" />
+          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/60 px-3 py-1.5 font-mono text-[11px] uppercase tracking-widest text-muted-strong backdrop-blur">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-live opacity-75" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-live" />
+            </span>
+            {site.availability.status}
           </span>
-          {site.availability.status}
+          <StatusTicker />
         </motion.div>
 
         <h1 className="max-w-[14ch] text-[clamp(3rem,9vw,7.5rem)] font-semibold leading-[0.9] tracking-tighter text-foreground">
