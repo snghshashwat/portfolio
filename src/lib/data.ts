@@ -31,7 +31,7 @@ export const intro = {
   line2: "systems at the edge",
   line3: "of AI and code.",
   subhead:
-    "ECE at Thapar. Data Science Intern at Rezo.ai. I turn fuzzy problems into fast, useful software.",
+    "Student at Thapar. Data Science Intern at Rezo.ai. I turn fuzzy problems into fast, useful software.",
 };
 
 export const about = {
@@ -39,7 +39,7 @@ export const about = {
     "I write software end to end. Retrieval systems, ML pipelines, product surfaces, and the plumbing that makes them fast.",
   quickFacts: [
     { k: "Based in", v: "Delhi, IN" },
-    { k: "Studying", v: "B.E. ECE, Thapar" },
+    { k: "Studying", v: "B.E., Thapar Institute" },
     { k: "Currently", v: "Rezo.ai" },
     { k: "Graduating", v: "2027" },
     { k: "Focus", v: "Applied AI, systems" },

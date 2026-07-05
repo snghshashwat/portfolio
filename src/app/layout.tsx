@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     template: `%s · ${site.name}`,
   },
   description:
-    "Shashwat Singh. Electrical and Computer Engineering student at Thapar, Data Science Intern at Rezo.ai. Building at the edge of applied AI and full-stack engineering.",
+    "Shashwat Singh. Student at Thapar Institute, Data Science Intern at Rezo.ai. Building at the edge of applied AI and full-stack engineering.",
   keywords: [
     "Shashwat Singh",
     "portfolio",
